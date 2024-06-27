@@ -22,7 +22,7 @@ def prompt(message):
     """
     Printing with a special format
     """
-    print(f"-{message}")
+    print(f"- {message}")
 
 def validate_pos_float(item):
     """
@@ -87,13 +87,15 @@ def monthly_payment(loan_amount_, annual_rate_,loan_duration_):
                         (1 + monthly_rate_) ** (-loan_duration_)))
     return round(monthly_payment_, 2)
 
-prompt("What's the loan amount? (in $)") # Asking user for loan amount
+prompt("What's the loan amount? (in $, for example '1000')") # Asking user for loan amount
 loan_amount = validate_pos_float(input())
 
-prompt("What's the Annual Percentage Rate? (in %)") # Asking user for loan amount
+prompt("What's the Annual Percentage Rate? (in %, for example '5')") # Asking user for loan amount
 annual_rate = validate_pos_float(input())
 
-prompt("What's the loan duration? (in months)") # Asking user for loan amount
+prompt("What's the loan duration? (in full months, for example '6')") # Asking user for loan amount
 loan_duration = validate_pos_int(input())
 
-print(f'The monthly payment is ${monthly_payment(loan_amount, annual_rate, loan_duration)}')
+print(f'The monthly payment is ${monthly_payment(loan_amount, annual_rate, loan_duration)}'
+      f' based on a loan of ${loan_amount}, for {loan_duration} months, at a {annual_rate}%' 
+      f' interest rate')
