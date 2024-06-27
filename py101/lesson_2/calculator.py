@@ -1,13 +1,24 @@
-# X Ask the user for the first number.
-# X Ask user for the second number.
-# X Ask the user for an operation to perform.
-# Perform the operation on the two numbers.
-# Print the result to the terminal.
+"""   
+    Adds two numbers together.
+
+    Parameters:
+    a (int or float): The first number.
+    b (int or float): The second number.
+
+    Returns:
+    int or float: The sum of the two numbers.
+"""
 
 def prompt(message):
+    """
+    Printing with a special format
+    """
     print(f"==> {message}")
 
 def invalid_number(number_str):
+    """
+    Checking the input for type
+    """
     try:
         int(number_str)
     except ValueError:
