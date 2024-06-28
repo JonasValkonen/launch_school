@@ -19,7 +19,7 @@ monthly payment
 
 import os
 import json
-#os.system('clear')
+os.system('clear')
 with open('loan_calculator_messages.json', 'r') as json_translation_table:
     MESSAGES = json.load(json_translation_table)
 LANGUAGE = 'en'
@@ -99,17 +99,18 @@ def monthly_payment(_loan_amount, _annual_rate,_loan_duration):
     """
     monthly_rate = (_annual_rate / 12 ) / 100
     print(type(_loan_duration))
-    
-    monthly_payment = _loan_amount * (monthly_rate / (1 -
+    _monthly_payment = _loan_amount * (monthly_rate / (1 -
                         (1 + monthly_rate)**(-_loan_duration)))
-    return round(monthly_payment, 2)
+    return round(_monthly_payment, 2)
 
 def main():
-    
-    prompt(MESSAGES[LANGUAGE]["loan_amount"]) # Asking user for loan amount
+    """
+    Main segment that initiates the execution of the program
+    """
+    prompt(MESSAGES[LANGUAGE]["loan_amount"])
     loan_amount = validate_pos_float(input())
 
-    prompt(MESSAGES[LANGUAGE]["annual_percentage_rate"]) # Asking user for loan amount
+    prompt(MESSAGES[LANGUAGE]["annual_percentage_rate"])
     annual_rate = validate_pos_float(input())
 
     prompt(MESSAGES[LANGUAGE]["loan_duration"])

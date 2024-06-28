@@ -1,7 +1,8 @@
 {
     "en": {
         "welcome": "Welcome to calculator!",
-        "invalid_number": "Hmm, that doesn't look lika valid number."
+        "invalid_number": "Hmm, that doesn't look lika valid number.",
+        "below_zero": "The number entered has to be positive"
     },
     "es": {
         "welcome": "Bienvenido a la calculadora!",
