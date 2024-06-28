@@ -17,6 +17,12 @@ monthly payment
 # Calculate the monthly interest rate
 # Print monthly interest rate
 
+import os
+import json
+#os.system('clear')
+with open('loan_calculator_messages.json', 'r') as json_translation_table:
+    MESSAGES = json.load(json_translation_table)
+LANGUAGE = 'en'
 
 def prompt(message):
     """
@@ -28,32 +34,41 @@ def validate_pos_float(item):
     """
     Validate if input is a positive float
     """
-    while invalid_number_float(item): # checking if input is float
-        prompt('Input should be a number')
-        item = input()
+    if item == 'nan':
+        prompt(MESSAGES[LANGUAGE]["no_nan"])
+        item = validate_pos_float(input())
+    if item == 'inf':
+        prompt(MESSAGES[LANGUAGE]["no_inf"])
+        item = validate_pos_float(input())
+    if invalid_number_float(item): # checking if input is float
+        prompt(MESSAGES[LANGUAGE]["input_number"])
+        item = validate_pos_float(input())
     item = float(item)
-    while item < 0:
-        prompt('Number should be positive')
-        item = input()
-        validate_pos_float(item)
+    if item <= 0:
+        prompt(MESSAGES[LANGUAGE]["positive_number"])
+        item = validate_pos_float(input())
     return item
 
 def validate_pos_int(item):
     """
     Validate if the input is a positive integer
     """
-    while invalid_number_int(item):
-        prompt('Input should be a number')
-        item = input()
-    while float(item) % 1 != 0:
-        prompt('Number should be an integer')
-        item = input()
-        validate_pos_float(item)
+    if item == 'nan':
+        prompt(MESSAGES[LANGUAGE]["no_nan"])
+        item = validate_pos_float(input())
+    if item == 'inf':
+        prompt(MESSAGES[LANGUAGE]["no_inf"])
+        item = validate_pos_float(input())
+    if invalid_number_int(item):
+        prompt(MESSAGES[LANGUAGE]["input_number"])
+        item = validate_pos_int(input())
+    if float(item) % 1 != 0:
+        prompt(MESSAGES[LANGUAGE]["integer_number"])
+        item = validate_pos_int(input())
     item = int(item)
-    while item < 0:
+    if item <= 0:
         prompt('Number should be positive')
-        item = input()
-        validate_pos_float(item)
+        item = validate_pos_int(input())
 
     return item
 
@@ -77,25 +92,39 @@ def invalid_number_int(number_str):
         return True
     return False
 
-def monthly_payment(loan_amount_, annual_rate_,loan_duration_):
+def monthly_payment(_loan_amount, _annual_rate,_loan_duration):
     """
     Calculate monthly payment based on loan amount, 
     annual interest rate and loan duration
     """
-    monthly_rate_ = (annual_rate_ / 12 ) / 100
-    monthly_payment_ = loan_amount_ * (monthly_rate_ / (1 -
-                        (1 + monthly_rate_) ** (-loan_duration_)))
-    return round(monthly_payment_, 2)
+    monthly_rate = (_annual_rate / 12 ) / 100
+    print(type(_loan_duration))
+    
+    monthly_payment = _loan_amount * (monthly_rate / (1 -
+                        (1 + monthly_rate)**(-_loan_duration)))
+    return round(monthly_payment, 2)
 
-prompt("What's the loan amount? (in $, for example '1000')") # Asking user for loan amount
-loan_amount = validate_pos_float(input())
+def main():
+    
+    prompt(MESSAGES[LANGUAGE]["loan_amount"]) # Asking user for loan amount
+    loan_amount = validate_pos_float(input())
 
-prompt("What's the Annual Percentage Rate? (in %, for example '5')") # Asking user for loan amount
-annual_rate = validate_pos_float(input())
+    prompt(MESSAGES[LANGUAGE]["annual_percentage_rate"]) # Asking user for loan amount
+    annual_rate = validate_pos_float(input())
 
-prompt("What's the loan duration? (in full months, for example '6')") # Asking user for loan amount
-loan_duration = validate_pos_int(input())
+    prompt(MESSAGES[LANGUAGE]["loan_duration"])
+    loan_duration = validate_pos_int(input())
 
-print(f'The monthly payment is ${monthly_payment(loan_amount, annual_rate, loan_duration)}'
-      f' based on a loan of ${loan_amount}, for {loan_duration} months, at a {annual_rate}%' 
-      f' interest rate')
+    _monthly_payment = monthly_payment(loan_amount, annual_rate, loan_duration)
+
+    print(MESSAGES[LANGUAGE]["monthly_payment"].replace(
+    r"{monthly_payment}", str(_monthly_payment)).replace(
+    r"{loan_amount}", str(loan_amount)).replace(
+    r"{loan_duration}", str(loan_duration)).replace(
+    r"{annual_rate}", str(annual_rate)))
+
+    print(MESSAGES[LANGUAGE]["calculate_again"])
+    if input().lower() == 'y':
+        main()
+
+main()

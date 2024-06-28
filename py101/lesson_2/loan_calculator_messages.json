@@ -1,0 +1,39 @@
+{
+    "en": {
+        "loan_amount": "What's the loan amount? (in $, for example '1000')",
+        "annual_percentage_rate": "What's the Annual Percentage Rate? (in %, for example '5')",
+        "loan_duration": "What's the loan duration? (in full months, for example '6')",
+        "monthly_payment": "The monthly payment is ${monthly_payment} based on a loan of ${loan_amount}, for {loan_duration} months, at a {annual_rate}% interest rate",
+        "calculate_again": "Do you want to calculate again?",
+        "no_nan": "Please don't write nan :)",
+        "no_inf": "Please don't write inf :)",
+        "input_number": "Input should be a number",
+        "positive_number": "Number should be positive",
+        "integer_number": "Number should be an integer"
+    },
+    "zh": {
+        "loan_amount": "贷款金额是多少？（以美元为单位，例如'1000'）",
+        "annual_percentage_rate": "年利率是多少？（以百分比为单位，例如'5'）",
+        "loan_duration": "贷款期限是多长？（以整月为单位，例如'6'）",
+        "monthly_payment": "每月还款金额为${monthly_payment}，基于贷款金额${loan_amount}，贷款期限{loan_duration}个月，年利率{annual_rate}%",
+        "calculate_again": "你想再次计算吗？",
+        "no_nan": "请不要输入nan :)",
+        "no_inf": "请不要输入inf :)",
+        "input_number": "输入应该是一个数字",
+        "positive_number": "数字应该是正数",
+        "integer_number": "数字应该是整数"
+    },
+    "se": {
+        "loan_amount": "Vad är lånebeloppet? (i $, till exempel '1000')",
+        "annual_percentage_rate": "Vad är den årliga procentsatsen? (i %, till exempel '5')",
+        "loan_duration": "Vad är lånets varaktighet? (i hela månader, till exempel '6')",
+        "monthly_payment": "Den månatliga betalningen är ${monthly_payment} baserat på ett lån på ${loan_amount}, för {loan_duration} månader, med en ränta på {annual_rate}%",
+        "calculate_again": "Vill du räkna igen?",
+        "no_nan": "Skriv inte nan :)",
+        "no_inf": "Skriv inte inf :)",
+        "input_number": "Indata ska vara ett nummer",
+        "positive_number": "Numret ska vara positivt",
+        "integer_number": "Numret ska vara ett heltal"
+    }
+
+}
