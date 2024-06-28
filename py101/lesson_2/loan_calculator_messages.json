@@ -4,7 +4,7 @@
         "annual_percentage_rate": "What's the Annual Percentage Rate? (in %, for example '5')",
         "loan_duration": "What's the loan duration? (in full months, for example '6')",
         "monthly_payment": "The monthly payment is ${monthly_payment} based on a loan of ${loan_amount}, for {loan_duration} months, at a {annual_rate}% interest rate",
-        "calculate_again": "Do you want to calculate again?",
+        "calculate_again": "Do you want to calculate again? y/n - enter 'y' if yes and 'n' if no",
         "no_nan": "Please don't write nan :)",
         "no_inf": "Please don't write inf :)",
         "input_number": "Input should be a number",

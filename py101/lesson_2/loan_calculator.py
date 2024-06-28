@@ -98,7 +98,6 @@ def monthly_payment(_loan_amount, _annual_rate,_loan_duration):
     annual interest rate and loan duration
     """
     monthly_rate = (_annual_rate / 12 ) / 100
-    print(type(_loan_duration))
     _monthly_payment = _loan_amount * (monthly_rate / (1 -
                         (1 + monthly_rate)**(-_loan_duration)))
     return round(_monthly_payment, 2)
