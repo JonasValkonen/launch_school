@@ -37,13 +37,12 @@ def determine_winner(user_choice, computer_choice):
     if ((user_choice == "rock" and computer_choice == "scissors")
         or (user_choice == "paper" and computer_choice == "rock")
         or (user_choice == "scissors" and computer_choice == "paper")):
-        prompt("You win!")
-    elif ((user_choice == "rock" and computer_choice == "paper")
+        return "You win!"
+    if ((user_choice == "rock" and computer_choice == "paper")
             or (user_choice == "paper" and computer_choice == "scissors")
             or (user_choice == "scissors" and computer_choice == "rock")):
-        prompt("Computer wins!")
-    else:
-        prompt("It's a tie!")
+        return "Computer wins!"
+    return "It's a tie!"
 
 def q_play_again():
     """
@@ -52,30 +51,21 @@ def q_play_again():
     prompt("Do you want to play again? type y for yes and n for no")
     y_or_n = input()
     if y_or_n[0].lower() == 'y':
-        return True
-    elif y_or_n[0].lower() == 'n':
-        return None
-    else:
+        main()
+    if y_or_n[0].lower() != 'n':
         q_play_again()
 
 def main():
     prompt(f'Choose one: {", ".join(VALID_CHOICES)}')
     user_choice = input()
-
     while user_choice.lower() not in VALID_CHOICES:
         prompt('Not a valid choice, you have to write rock,'
                ' paper or scissors')
         user_choice = input()
-    
     user_choice = user_choice.lower()
     computer_choice = random.choice(VALID_CHOICES)
-
     prompt(f'You chose {user_choice}, computer chose {computer_choice}')
-    determine_winner(user_choice, computer_choice)
-    if q_play_again() == True:
-        main()
-        
+    prompt(determine_winner(user_choice, computer_choice))
+    q_play_again()
 
 main()
-
-
