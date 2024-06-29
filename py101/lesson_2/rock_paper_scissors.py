@@ -58,14 +58,17 @@ def q_play_again():
 def main():
     prompt(f'Choose one: {", ".join(VALID_CHOICES)}')
     user_choice = input()
+
     while user_choice.lower() not in VALID_CHOICES:
         prompt('Not a valid choice, you have to write rock,'
                ' paper or scissors')
         user_choice = input()
+
     user_choice = user_choice.lower()
     computer_choice = random.choice(VALID_CHOICES)
     prompt(f'You chose {user_choice}, computer chose {computer_choice}')
     prompt(determine_winner(user_choice, computer_choice))
+
     q_play_again()
 
 main()

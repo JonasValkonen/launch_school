@@ -22,8 +22,21 @@ import json
 os.system('clear')
 with open('loan_calculator_messages.json', 'r') as json_translation_table:
     MESSAGES = json.load(json_translation_table)
-LANGUAGE = 'en'
 
+def select_language():
+    prompt('Please select your language. Type the number 1 for english. '
+           '输入“2”以选择中文. Skriv “3” för att välja svenska.')
+    language_input = input()
+    while language_input != '1' and language_input != '2' and language_input != '3':
+        prompt('Wrong input. Type the number 1 for english. '
+           '输入“2”以选择中文. Skriv “3” för att välja svenska.')
+        language_input = input()
+    if language_input == '1':
+        return 'en'
+    if language_input == '2':
+        return 'zh'
+    return 'se'
+    
 def prompt(message):
     """
     Printing with a special format
@@ -35,17 +48,17 @@ def validate_pos_float(item):
     Validate if input is a positive float
     """
     if item == 'nan':
-        prompt(MESSAGES[LANGUAGE]["no_nan"])
+        prompt(MESSAGES[language]["no_nan"])
         item = validate_pos_float(input())
     if item == 'inf':
-        prompt(MESSAGES[LANGUAGE]["no_inf"])
+        prompt(MESSAGES[language]["no_inf"])
         item = validate_pos_float(input())
     if invalid_number_float(item): # checking if input is float
-        prompt(MESSAGES[LANGUAGE]["input_number"])
+        prompt(MESSAGES[language]["input_number"])
         item = validate_pos_float(input())
     item = float(item)
     if item <= 0:
-        prompt(MESSAGES[LANGUAGE]["positive_number"])
+        prompt(MESSAGES[language]["positive_number"])
         item = validate_pos_float(input())
     return item
 
@@ -54,16 +67,16 @@ def validate_pos_int(item):
     Validate if the input is a positive integer
     """
     if item == 'nan':
-        prompt(MESSAGES[LANGUAGE]["no_nan"])
+        prompt(MESSAGES[language]["no_nan"])
         item = validate_pos_float(input())
     if item == 'inf':
-        prompt(MESSAGES[LANGUAGE]["no_inf"])
+        prompt(MESSAGES[language]["no_inf"])
         item = validate_pos_float(input())
     if invalid_number_int(item):
-        prompt(MESSAGES[LANGUAGE]["input_number"])
+        prompt(MESSAGES[language]["input_number"])
         item = validate_pos_int(input())
     if float(item) % 1 != 0:
-        prompt(MESSAGES[LANGUAGE]["integer_number"])
+        prompt(MESSAGES[language]["integer_number"])
         item = validate_pos_int(input())
     item = int(item)
     if item <= 0:
@@ -106,24 +119,26 @@ def main():
     """
     Main segment that initiates the execution of the program
     """
-    prompt(MESSAGES[LANGUAGE]["loan_amount"])
+    language = select_language()
+
+    prompt(MESSAGES[language]["loan_amount"])
     loan_amount = validate_pos_float(input())
 
-    prompt(MESSAGES[LANGUAGE]["annual_percentage_rate"])
+    prompt(MESSAGES[language]["annual_percentage_rate"])
     annual_rate = validate_pos_float(input())
 
-    prompt(MESSAGES[LANGUAGE]["loan_duration"])
+    prompt(MESSAGES[language]["loan_duration"])
     loan_duration = validate_pos_int(input())
 
     _monthly_payment = monthly_payment(loan_amount, annual_rate, loan_duration)
 
-    print(MESSAGES[LANGUAGE]["monthly_payment"].replace(
+    print(MESSAGES[language]["monthly_payment"].replace(
     r"{monthly_payment}", str(_monthly_payment)).replace(
     r"{loan_amount}", str(loan_amount)).replace(
     r"{loan_duration}", str(loan_duration)).replace(
     r"{annual_rate}", str(annual_rate)))
 
-    print(MESSAGES[LANGUAGE]["calculate_again"])
+    print(MESSAGES[language]["calculate_again"])
     if input().lower() == 'y':
         main()
 

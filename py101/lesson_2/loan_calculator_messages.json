@@ -25,7 +25,7 @@
     },
     "se": {
         "loan_amount": "Vad är lånebeloppet? (i $, till exempel '1000')",
-        "annual_percentage_rate": "Vad är den årliga procentsatsen? (i %, till exempel '5')",
+        "annual_percentage_rate": "Vad är den årliga räntesatsen? (i %, till exempel '5')",
         "loan_duration": "Vad är lånets varaktighet? (i hela månader, till exempel '6')",
         "monthly_payment": "Den månatliga betalningen är ${monthly_payment} baserat på ett lån på ${loan_amount}, för {loan_duration} månader, med en ränta på {annual_rate}%",
         "calculate_again": "Vill du räkna igen?",
