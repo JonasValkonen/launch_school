@@ -21,7 +21,7 @@ WIN_LOOSE_PAIRS ={"winning_against":
                     }
                 }
 
-GAMES_IN_MATCH = 5
+POINTS_IN_MATCH = 5
 
 # Global counters for wins
 COMPUTER_WINS = 0
@@ -72,6 +72,9 @@ def q_play_again():
         q_play_again()
 
 def check_valid_choice(user_choice):
+    """
+    If user choice is not valid, user is queried again
+    """
     _user_choice = user_choice.lower()
     valid_initials_choices = map_choice_initial_w_choices()
 
@@ -85,6 +88,10 @@ def check_valid_choice(user_choice):
     return _user_choice
 
 def map_choice_initial_w_choices():
+    """
+    Creates a dictionary with the initial character connected to a list of all
+    choices starting on that initial character
+    """
     choice_initial_map = {}
     for valid_choice in VALID_CHOICES:
         choice_initial = valid_choice[0]
@@ -94,21 +101,21 @@ def map_choice_initial_w_choices():
             choice_initial_map[choice_initial].append(valid_choice)
     return choice_initial_map
 
-def list_possible_choice_index(choice_inits_w_choices, user_choice):
-
-    possible_choice_index = []
-
-    for index, _ in enumerate(choice_inits_w_choices[user_choice[0]]):
-        possible_choice_index.append(index + 1)
-
-    return str(possible_choice_index)
-
 def print_possible_choices_for_initial(choice_inits_w_choices, user_choice):
     for index, choice in enumerate(choice_inits_w_choices[user_choice[0]]):
         prompt(f'{index+1}: {choice}')
 
 
 def define_user_choice(user_choice):
+    """
+    Generalized handling of the different user inputs. 
+    Example scenarios:
+    - if input 'spock' return 'spock'
+    - if input is a single character string and there is only one possible
+        choice for that character, it will return the possible choice
+    - if input is single character and there are two or more possible
+        choices, the user can select which choice they want
+    """
     #If choice is expressed as the full exact name
     if user_choice in VALID_CHOICES:
         return user_choice
@@ -126,13 +133,13 @@ def define_user_choice(user_choice):
         'Please insert the corresponding number to choose:')
         print_possible_choices_for_initial(choice_inits_w_choices, user_choice)
 
-        possible_choice_initials = list_possible_choice_index( \
-            choice_inits_w_choices, user_choice)
-
+        choice_initials = list(range(len(choice_inits_w_choices \
+                                         [user_choice])) + 1)
         _choice = 0
+
         while True:
             _choice = input()
-            if _choice in possible_choice_initials:
+            if _choice in choice_initials:
                 prompt(choice_inits_w_choices\
                     [user_choice[0]][int(_choice) - 1])
                 return choice_inits_w_choices\
@@ -143,21 +150,24 @@ def define_user_choice(user_choice):
                 prompt(f'{index+1}: {choice}')
 
 def match_series_status(winner):
+    """
+    Keeping track of the score and announces the final result when a player
+    reaches POINTS_IN_MATCH
+    """
     if winner == "user":
         global USER_WINS
         USER_WINS += 1
-        if USER_WINS == GAMES_IN_MATCH:
-            prompt(f"You have {GAMES_IN_MATCH} wins and win the series!")
+        if USER_WINS == POINTS_IN_MATCH:
+            prompt(f"You got {POINTS_IN_MATCH} wins and won the series!")
     elif winner == "computer":
         global COMPUTER_WINS
         COMPUTER_WINS += 1
-        if COMPUTER_WINS == GAMES_IN_MATCH:
-            prompt(f"Computer has {GAMES_IN_MATCH} wins and win the series!")
-    if GAMES_IN_MATCH not in (COMPUTER_WINS,USER_WINS):
+        if COMPUTER_WINS == POINTS_IN_MATCH:
+            prompt(f"Computer got {POINTS_IN_MATCH} wins and won the series!")
+    if POINTS_IN_MATCH not in (COMPUTER_WINS,USER_WINS):
         prompt(f'Computer: {COMPUTER_WINS} - You: {USER_WINS}')
 
 def main():
-    
     prompt(f'Choose one: {", ".join(VALID_CHOICES)}. You can also write '
            'the first letter of your choice, for example r for rock.')
     user_choice = input().lower()
@@ -169,9 +179,9 @@ def main():
     prompt(f'You chose {user_choice}, computer chose {computer_choice}')
     determine_winner(user_choice, computer_choice)
     print("\n--------------Next Round---------------\n")
-    if GAMES_IN_MATCH in (COMPUTER_WINS,USER_WINS):
+    if POINTS_IN_MATCH in (COMPUTER_WINS,USER_WINS):
         q_play_again()
-    elif (COMPUTER_WINS < GAMES_IN_MATCH) and (USER_WINS < GAMES_IN_MATCH):
+    elif (COMPUTER_WINS < POINTS_IN_MATCH) and (USER_WINS < POINTS_IN_MATCH):
         main()
 
 main()
